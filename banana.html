@@ -1,0 +1,102 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>banana</title> 
+
+<!--
+<script type="text/javascript" src="jquery-1.8.2.min.js"  ></script>
+-->
+
+<script type="text/javascript" src="https://dss1.bdstatic.com/5eN1bjq8AAUYm2zgoY3K/r/www/cache/static/protocol/https/jquery/jquery-1.10.2.min_65682a2.js"  ></script>
+
+	
+</head>
+<body>
+<h2>banana app</h2>
+<div>
+ <input type="text"  id="searchTxt" value="新年聚会" />
+ <input type="button" onclick="searchBtn()" id="searchBtn" value="查询"  />
+</div>
+<HR>
+<div>
+	<ul id='t_ul'>
+		<li>
+			<img src='' width='100' height='100' alt='haha'/>
+			<img src='' width='100' height='100' alt='haha'/>
+			<span>test</span>
+		</li><hr/>
+	</ul>
+</div>
+
+<script>
+console.log('banana')
+
+$("#searchTxt").keyup(function(){ if(event.keyCode == 13){ 
+	searchBtn();
+}}); 
+
+
+function searchBtn(){
+	
+	searchTxt=$('#searchTxt').val()
+	_url='http://app.xjlb4.com/api.php/app_2/searchVod?keys='+searchTxt
+	console.log('搜索::'+_url);
+	
+	$.ajax({
+		 url: _url,
+		 data: {},
+		 type: 'GET',
+		 success: function(data){
+			console.log('success::\n'+data);
+			//data=decodeUnicode(data)
+			//console.log('success::\n'+data);
+			process(data)
+			
+		 },error:function(e){
+			 console.log('error::\n'+e);
+		 }
+	 })//end ajax
+ 
+ 
+}
+
+
+function process(data){
+	data=$.parseJSON(data);
+	console.log('个数：'+data.total);
+	console.log(data.list);
+	imgList=data.list;
+	if(imgList.length!=0){
+		var res='';
+		for(var i=0;i<imgList.length;i++){
+			res+='<li>';
+			res+="<img src='"+imgList[i].vod_pic+"' width='200' height='100' alt='"+imgList[i].vod_name+"'/>";
+			res+="<img src='"+imgList[i].vod_pic_thumb+"' width='200' height='100' alt='"+imgList[i].vod_tag+"'/>";
+			res+="<BR>"
+			
+			res+="<span>"+imgList[i].vod_name+","+imgList[i].vod_tag+","+imgList[i].vod_actor+","+imgList[i].vod_area+","+imgList[i].vod_score+" </span>";
+			if(imgList[i].vip_video_status==1) res+=' 我是VIP';
+			res+="<a href='"+imgList[i].player_list[0].url+"'> m3u8,</a>";
+			res+="<a href='"+imgList[i].down_list[0].url+"'> mp4,</a>";
+			res+=" size:"+imgList[i].player_list[0].size
+
+			res+='</li><hr/>';
+		}
+	
+		$('#t_ul').html(res);
+	}else{
+		alert('空列表')
+	}
+}
+
+the_str='{"code":1,"msg":"数据列表","page":1,"pagecount":0,"limit":null,"total":1,"list":[{"vod_id":12091,"vod_name":"新年聚会中的婚外情","vod_tag":"巨乳,美少女,美乳,69,口交,乳交,骑乘位","vod_class":"巨乳,美少女,美乳,69,口交,乳交,骑乘位","vod_pic":"https://img.xjimg10.com//upload/vod/20200503/f9cd5ba13b993c72d4abef7d85e5f4c9.jpg","vod_actor":"玲奈","vod_director":"","vod_area":"日韩","vod_content":"新年聚会中的婚外情","vod_pic_thumb":"https://img.xjimg10.com//upload/vod/20200503/d71694f126e5350d8e263e629ae78e4a.jpg","vod_score":"7.8","vod_time":"2020-05-03","vod_hits":93928,"vod_sub":"010419-829-CN","vip_video_status":0,"":null,"look_count":93928,"player_list":[{"pid":"超清","url":"https://f4.jxpasy.com/202005/01/Ig12cfM9/2200kb/hls/index.m3u8","size":"270M","vid":12091}],"down_list":[{"url":"http://d4.shuxinkz.com/202005/01/Ig12cfM9/mp4/Ig12cfM9.mp4","did":"高清","size":"270M","vid":12091}]},{"vod_id":12091,"vod_name":"新年聚会中的婚外情","vod_tag":"巨乳,美少女,美乳,69,口交,乳交,骑乘位","vod_class":"巨乳,美少女,美乳,69,口交,乳交,骑乘位","vod_pic":"https://img.xjimg10.com//upload/vod/20200503/f9cd5ba13b993c72d4abef7d85e5f4c9.jpg","vod_actor":"玲奈","vod_director":"","vod_area":"日韩","vod_content":"新年聚会中的婚外情","vod_pic_thumb":"https://img.xjimg10.com//upload/vod/20200503/d71694f126e5350d8e263e629ae78e4a.jpg","vod_score":"7.8","vod_time":"2020-05-03","vod_hits":93928,"vod_sub":"010419-829-CN","vip_video_status":0,"":null,"look_count":93928,"player_list":[{"pid":"超清","url":"https://f4.jxpasy.com/202005/01/Ig12cfM9/2200kb/hls/index.m3u8","size":"270M","vid":12091}],"down_list":[{"url":"http://d4.shuxinkz.com/202005/01/Ig12cfM9/mp4/Ig12cfM9.mp4","did":"高清","size":"270M","vid":12091}]}]}'
+
+process(the_str);
+
+</script>
+
+</body>
+</html>
+
+
+
