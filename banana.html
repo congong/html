@@ -16,6 +16,8 @@
 <div>
  <input type="text"  id="searchTxt" value="新年聚会" />
  <input type="button" onclick="searchBtn()" id="searchBtn" value="查询"  />
+ <input type="button" onclick="clearBtn()" id="searchBtn" value="清空"  />
+ 
 </div>
 <HR>
 <div>
@@ -35,6 +37,9 @@ $("#searchTxt").keyup(function(){ if(event.keyCode == 13){
 	searchBtn();
 }}); 
 
+function clearBtn(){
+	$('#searchTxt').val('')
+}
 
 function searchBtn(){
 	
